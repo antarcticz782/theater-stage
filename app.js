@@ -2,6 +2,9 @@ const viewport = document.getElementById("viewport");
 const stageWindow = document.getElementById("stage-window");
 const stage = document.getElementById("stage");
 const loading = document.getElementById("loading");
+const loadingBarFill = document.getElementById("loading-bar-fill");
+const loadingPercent = document.getElementById("loading-percent");
+const loadingError = document.getElementById("loading-error");
 const rotateDeviceHint = document.getElementById("rotate-device-hint");
 
 document.body.classList.add("app-loading");
@@ -100,8 +103,18 @@ function versionedSrc(src) {
 }
 
 function setLoadingMessage(text) {
-  if (loading) {
-    loading.textContent = text;
+  if (loadingError) {
+    loadingError.textContent = text;
+  }
+}
+
+function setLoadingProgress(progress) {
+  const percent = Math.round(clamp(progress, 0, 1) * 100);
+  if (loadingBarFill) {
+    loadingBarFill.style.width = `${percent}%`;
+  }
+  if (loadingPercent) {
+    loadingPercent.textContent = `${percent}%`;
   }
 }
 
@@ -166,39 +179,60 @@ async function preloadWithLimit(urls, loader, onProgress, limit = 8) {
   await Promise.all(Array.from({ length: workerCount }, worker));
 }
 
-async function waitForCrystalBallViewer() {
+async function waitForCrystalBallViewer(timeoutMs = 90000) {
   if (window.crystalBallViewer) {
     return window.crystalBallViewer;
   }
-  return new Promise((resolve, reject) => {
+  const moduleScript = document.querySelector('script[type="module"][src*="crystal-ball"]');
+  const moduleUrl = moduleScript?.src || moduleScript?.getAttribute("src");
+  if (moduleUrl) {
+    try {
+      await import(moduleUrl);
+    } catch (error) {
+      console.warn("Crystal ball module import failed; waiting for script tag instead.", error);
+    }
+    if (window.crystalBallViewer) {
+      return window.crystalBallViewer;
+    }
+    return null;
+  }
+  return new Promise((resolve) => {
     const timeout = window.setTimeout(() => {
       window.removeEventListener("crystal-ball-ready", onReady);
-      reject(new Error("水晶球模型加载器没有准备好"));
-    }, 15000);
+      resolve(null);
+    }, timeoutMs);
     function onReady() {
       window.clearTimeout(timeout);
-      resolve(window.crystalBallViewer);
+      resolve(window.crystalBallViewer || null);
     }
     window.addEventListener("crystal-ball-ready", onReady, { once: true });
   });
 }
 
-async function preloadCrystalBallModel() {
+async function preloadCrystalBallModel(onProgressCallback = () => {}) {
   const viewer = await waitForCrystalBallViewer();
-  const onProgress = (event) => {
+  if (!viewer) {
+    console.warn("Crystal ball viewer was not ready during preload; continuing without blocking the stage.");
+    onProgressCallback(100);
+    return;
+  }
+  const handleProgress = (event) => {
     const percent = event.detail?.percent;
     if (Number.isFinite(percent)) {
-      setLoadingMessage(`正在加载水晶球模型 ${percent}%`);
+      onProgressCallback(Math.max(0, Math.min(100, percent)));
     }
   };
-  window.addEventListener("crystal-ball-progress", onProgress);
+  window.addEventListener("crystal-ball-progress", handleProgress);
   try {
-    setLoadingMessage("正在加载水晶球模型...");
     await viewer.ensureLoaded();
     viewer.applyModelOrientation?.();
     viewer.resize?.();
+    onProgressCallback(100);
+  } catch (error) {
+    console.warn("Crystal ball model preload failed; the page will still open.", error);
+    onProgressCallback(100);
   } finally {
-    window.removeEventListener("crystal-ball-progress", onProgress);
+    window.removeEventListener("crystal-ball-progress", handleProgress);
   }
 }
 
@@ -208,30 +242,48 @@ async function preloadManifestAssets(manifest) {
   const audioUrls = Object.values(manifest.audio || {})
     .filter((url) => typeof url === "string")
     .map((url) => versionedSrc(url));
+  const modelWeight = 100;
+  const totalWeight = Math.max(1, imageUrls.length + audioUrls.length + modelWeight);
+  let imageDone = 0;
+  let audioDone = 0;
+  let modelDone = 0;
+  const updateProgress = () => {
+    setLoadingProgress((imageDone + audioDone + modelDone) / totalWeight);
+  };
 
   if (imageUrls.length) {
-    setLoadingMessage(`正在加载舞台图片 0/${imageUrls.length}`);
     await preloadWithLimit(
       imageUrls,
       preloadImage,
-      (done, total) => setLoadingMessage(`正在加载舞台图片 ${done}/${total}`),
+      (done) => {
+        imageDone = done;
+        updateProgress();
+      },
       8,
     );
   }
   if (audioUrls.length) {
-    setLoadingMessage(`正在加载声音 0/${audioUrls.length}`);
     await preloadWithLimit(
       audioUrls,
       preloadFile,
-      (done, total) => setLoadingMessage(`正在加载声音 ${done}/${total}`),
+      (done) => {
+        audioDone = done;
+        updateProgress();
+      },
       3,
     );
   }
-  await preloadCrystalBallModel();
+  await preloadCrystalBallModel((percent) => {
+    modelDone = (Math.max(modelDone, percent) / 100) * modelWeight;
+    updateProgress();
+  });
+  modelDone = modelWeight;
+  updateProgress();
 }
 
 function revealLoadedStage() {
   requestAnimationFrame(() => {
+    setLoadingProgress(1);
     document.body.classList.remove("app-loading");
     loading.classList.add("hidden");
   });
@@ -1905,7 +1957,6 @@ async function loadStage() {
   state.actorMoveRightLimit = manifest.actorMoveRightLimit || 4550;
 
   await preloadManifestAssets(manifest);
-  setLoadingMessage("正在布置舞台...");
 
   if (manifest.audio?.chirp) {
     state.chirpAudio = new Audio(versionedSrc(manifest.audio.chirp));
