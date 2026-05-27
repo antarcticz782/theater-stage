@@ -185,27 +185,31 @@ async function waitForCrystalBallViewer(timeoutMs = 90000) {
   }
   const moduleScript = document.querySelector('script[type="module"][src*="crystal-ball"]');
   const moduleUrl = moduleScript?.src || moduleScript?.getAttribute("src");
-  if (moduleUrl) {
-    try {
-      await import(moduleUrl);
-    } catch (error) {
-      console.warn("Crystal ball module import failed; waiting for script tag instead.", error);
-    }
-    if (window.crystalBallViewer) {
-      return window.crystalBallViewer;
-    }
-    return null;
-  }
   return new Promise((resolve) => {
-    const timeout = window.setTimeout(() => {
+    let settled = false;
+    const settle = (viewer) => {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      window.clearTimeout(timeout);
       window.removeEventListener("crystal-ball-ready", onReady);
-      resolve(null);
+      resolve(viewer || null);
+    };
+    const timeout = window.setTimeout(() => {
+      settle(window.crystalBallViewer || null);
     }, timeoutMs);
     function onReady() {
-      window.clearTimeout(timeout);
-      resolve(window.crystalBallViewer || null);
+      settle(window.crystalBallViewer || null);
     }
     window.addEventListener("crystal-ball-ready", onReady, { once: true });
+    if (moduleUrl) {
+      import(moduleUrl)
+        .then(() => settle(window.crystalBallViewer || null))
+        .catch((error) => {
+          console.warn("Crystal ball module import failed; waiting for script tag instead.", error);
+        });
+    }
   });
 }
 
@@ -1839,7 +1843,7 @@ function setupLayer6(manifest) {
   hitbox.style.height = `${manifest.layer6.height + 128}px`;
   stage.appendChild(hitbox);
 
-  const openCrystalBall = (event) => {
+  const openCrystalBall = async (event) => {
     if (!state.layer6?.shown) {
       return;
     }
@@ -1847,7 +1851,12 @@ function setupLayer6(manifest) {
     event.preventDefault();
     requestLandscapeMode();
     initializeAudio();
-    window.crystalBallViewer?.show();
+    const viewer = window.crystalBallViewer || await waitForCrystalBallViewer(20000);
+    if (!viewer) {
+      console.warn("Crystal ball viewer is not available.");
+      return;
+    }
+    viewer.show();
   };
   sprite.element.addEventListener("pointerdown", openCrystalBall);
   hitbox.addEventListener("pointerdown", openCrystalBall);
