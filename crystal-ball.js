@@ -85,7 +85,9 @@ class CrystalBallViewer {
     this.container.classList.add("visible");
     this.container.setAttribute("aria-hidden", "false");
     this.visible = true;
-    this.setStatus("模型加载中...");
+    if (!this.model) {
+      this.setStatus("模型加载中...");
+    }
     try {
       await this.ensureLoaded();
       this.applyModelOrientation();
@@ -231,6 +233,7 @@ class CrystalBallViewer {
       return;
     }
     const percent = Math.round((event.loaded / event.total) * 100);
+    window.dispatchEvent(new CustomEvent("crystal-ball-progress", { detail: { percent } }));
     this.setStatus(`模型加载中 ${percent}%`);
   }
 
@@ -367,6 +370,7 @@ function createSunnyEnvironmentScene() {
 
 const viewer = new CrystalBallViewer();
 window.crystalBallViewer = viewer;
+window.dispatchEvent(new Event("crystal-ball-ready"));
 window.addEventListener("resize", () => {
   viewer.applyModelOrientation();
   viewer.resize();

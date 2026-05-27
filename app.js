@@ -4,6 +4,8 @@ const stage = document.getElementById("stage");
 const loading = document.getElementById("loading");
 const rotateDeviceHint = document.getElementById("rotate-device-hint");
 
+document.body.classList.add("app-loading");
+
 const state = {
   canvasWidth: 5535,
   canvasHeight: 1259,
@@ -95,6 +97,144 @@ function randomBetween(min, max) {
 
 function versionedSrc(src) {
   return state.assetVersion ? `${src}?v=${state.assetVersion}` : src;
+}
+
+function setLoadingMessage(text) {
+  if (loading) {
+    loading.textContent = text;
+  }
+}
+
+function collectSrcValues(value, sources = new Set()) {
+  if (!value) {
+    return sources;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      collectSrcValues(item, sources);
+    }
+    return sources;
+  }
+  if (typeof value === "object") {
+    if (typeof value.src === "string") {
+      sources.add(versionedSrc(value.src));
+    }
+    for (const child of Object.values(value)) {
+      collectSrcValues(child, sources);
+    }
+  }
+  return sources;
+}
+
+function preloadImage(url) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.onload = () => {
+      if (image.decode) {
+        image.decode().catch(() => {}).finally(resolve);
+        return;
+      }
+      resolve();
+    };
+    image.onerror = () => reject(new Error(`图片加载失败：${url}`));
+    image.src = url;
+  });
+}
+
+async function preloadFile(url) {
+  const response = await fetch(url, { cache: "force-cache" });
+  if (!response.ok) {
+    throw new Error(`资源加载失败：${url}`);
+  }
+  await response.arrayBuffer();
+}
+
+async function preloadWithLimit(urls, loader, onProgress, limit = 8) {
+  let nextIndex = 0;
+  let completed = 0;
+  const workerCount = Math.min(limit, urls.length);
+  async function worker() {
+    while (nextIndex < urls.length) {
+      const url = urls[nextIndex];
+      nextIndex += 1;
+      await loader(url);
+      completed += 1;
+      onProgress?.(completed, urls.length, url);
+    }
+  }
+  await Promise.all(Array.from({ length: workerCount }, worker));
+}
+
+async function waitForCrystalBallViewer() {
+  if (window.crystalBallViewer) {
+    return window.crystalBallViewer;
+  }
+  return new Promise((resolve, reject) => {
+    const timeout = window.setTimeout(() => {
+      window.removeEventListener("crystal-ball-ready", onReady);
+      reject(new Error("水晶球模型加载器没有准备好"));
+    }, 15000);
+    function onReady() {
+      window.clearTimeout(timeout);
+      resolve(window.crystalBallViewer);
+    }
+    window.addEventListener("crystal-ball-ready", onReady, { once: true });
+  });
+}
+
+async function preloadCrystalBallModel() {
+  const viewer = await waitForCrystalBallViewer();
+  const onProgress = (event) => {
+    const percent = event.detail?.percent;
+    if (Number.isFinite(percent)) {
+      setLoadingMessage(`正在加载水晶球模型 ${percent}%`);
+    }
+  };
+  window.addEventListener("crystal-ball-progress", onProgress);
+  try {
+    setLoadingMessage("正在加载水晶球模型...");
+    await viewer.ensureLoaded();
+    viewer.applyModelOrientation?.();
+    viewer.resize?.();
+  } finally {
+    window.removeEventListener("crystal-ball-progress", onProgress);
+  }
+}
+
+async function preloadManifestAssets(manifest) {
+  const imageUrls = [...collectSrcValues(manifest)]
+    .filter((url) => /\.(png|jpe?g|webp|gif|avif)(\?|$)/i.test(url));
+  const audioUrls = Object.values(manifest.audio || {})
+    .filter((url) => typeof url === "string")
+    .map((url) => versionedSrc(url));
+
+  if (imageUrls.length) {
+    setLoadingMessage(`正在加载舞台图片 0/${imageUrls.length}`);
+    await preloadWithLimit(
+      imageUrls,
+      preloadImage,
+      (done, total) => setLoadingMessage(`正在加载舞台图片 ${done}/${total}`),
+      8,
+    );
+  }
+  if (audioUrls.length) {
+    setLoadingMessage(`正在加载声音 0/${audioUrls.length}`);
+    await preloadWithLimit(
+      audioUrls,
+      preloadFile,
+      (done, total) => setLoadingMessage(`正在加载声音 ${done}/${total}`),
+      3,
+    );
+  }
+  await preloadCrystalBallModel();
+}
+
+function revealLoadedStage() {
+  requestAnimationFrame(() => {
+    document.body.classList.remove("app-loading");
+    loading.classList.add("hidden");
+  });
 }
 
 function playOneShot(audio) {
@@ -1764,6 +1904,9 @@ async function loadStage() {
   state.displayWorldWidth = manifest.displayWorldWidth || 2300;
   state.actorMoveRightLimit = manifest.actorMoveRightLimit || 4550;
 
+  await preloadManifestAssets(manifest);
+  setLoadingMessage("正在布置舞台...");
+
   if (manifest.audio?.chirp) {
     state.chirpAudio = new Audio(versionedSrc(manifest.audio.chirp));
     state.chirpAudio.loop = true;
@@ -1827,8 +1970,8 @@ async function loadStage() {
   setupActor(manifest);
   setupCurtain(manifest);
   resizeStage();
-  loading.classList.add("hidden");
   requestAnimationFrame(tick);
+  revealLoadedStage();
 }
 
 viewport.addEventListener("pointerdown", (event) => {
@@ -1876,6 +2019,6 @@ window.addEventListener("orientationchange", () => {
 updateOrientationHint();
 
 loadStage().catch((error) => {
-  loading.textContent = error.message;
+  setLoadingMessage(error.message);
   console.error(error);
 });

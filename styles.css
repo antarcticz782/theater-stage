@@ -44,6 +44,12 @@ body {
   max-height: 100vh;
   overflow: hidden;
   background: #050506;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+body.app-loading #stage-window {
+  opacity: 0;
 }
 
 html.mobile-portrait #viewport {
@@ -589,15 +595,23 @@ html.mobile-portrait #stage-window {
 
 #loading {
   position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  inset: 0;
+  z-index: 50000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #050506;
   color: #f4f0ea;
   font-size: 14px;
   letter-spacing: 0;
-  opacity: 0.8;
+  line-height: 1.8;
+  text-align: center;
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 0.7s ease;
 }
 
 #loading.hidden {
-  display: none;
+  opacity: 0;
+  pointer-events: none;
 }

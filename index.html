@@ -7,14 +7,14 @@
     <script type="importmap">
       {
         "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@0.184.0/build/three.module.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.184.0/examples/jsm/"
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/addons/"
         }
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=20260526-08">
+    <link rel="stylesheet" href="styles.css?v=20260527-01">
   </head>
-  <body>
+  <body class="app-loading">
     <main id="viewport" aria-label="剧院舞台">
       <div id="stage-window">
         <div id="stage" aria-hidden="true"></div>
@@ -27,7 +27,7 @@
       <canvas id="crystal-ball-canvas"></canvas>
       <div id="crystal-ball-status" aria-live="polite"></div>
     </div>
-    <script src="app.js?v=20260526-08"></script>
-    <script type="module" src="crystal-ball.js?v=20260526-08"></script>
+    <script src="app.js?v=20260527-01"></script>
+    <script type="module" src="crystal-ball.js?v=20260527-01"></script>
   </body>
 </html>
