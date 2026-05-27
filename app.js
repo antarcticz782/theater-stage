@@ -163,6 +163,18 @@ async function preloadFile(url) {
   await response.arrayBuffer();
 }
 
+function isWorldPointInsideFrame(point, frame, padding = 0) {
+  if (!point || !frame) {
+    return false;
+  }
+  return (
+    point.x >= frame.left - padding &&
+    point.x <= frame.left + frame.width + padding &&
+    point.y >= frame.top - padding &&
+    point.y <= frame.top + frame.height + padding
+  );
+}
+
 async function preloadWithLimit(urls, loader, onProgress, limit = 8) {
   let nextIndex = 0;
   let completed = 0;
@@ -246,13 +258,11 @@ async function preloadManifestAssets(manifest) {
   const audioUrls = Object.values(manifest.audio || {})
     .filter((url) => typeof url === "string")
     .map((url) => versionedSrc(url));
-  const modelWeight = 100;
-  const totalWeight = Math.max(1, imageUrls.length + audioUrls.length + modelWeight);
+  const totalWeight = Math.max(1, imageUrls.length + audioUrls.length);
   let imageDone = 0;
   let audioDone = 0;
-  let modelDone = 0;
   const updateProgress = () => {
-    setLoadingProgress((imageDone + audioDone + modelDone) / totalWeight);
+    setLoadingProgress((imageDone + audioDone) / totalWeight);
   };
 
   if (imageUrls.length) {
@@ -277,11 +287,6 @@ async function preloadManifestAssets(manifest) {
       3,
     );
   }
-  await preloadCrystalBallModel((percent) => {
-    modelDone = (Math.max(modelDone, percent) / 100) * modelWeight;
-    updateProgress();
-  });
-  modelDone = modelWeight;
   updateProgress();
 }
 
@@ -1863,7 +1868,7 @@ function setupLayer6(manifest) {
   const effect = document.createElement("div");
   effect.className = "magic-poof";
   stage.appendChild(effect);
-  state.layer6 = { sprite, hitbox, effect, shown: false };
+  state.layer6 = { sprite, hitbox, effect, open: openCrystalBall, shown: false };
 }
 
 function showLayer6Magic() {
@@ -1887,6 +1892,14 @@ function showLayer6Magic() {
     state.layer6.hitbox.classList.add("active");
     sprite.element.classList.add("visible");
   }
+}
+
+function shouldOpenLayer6FromEvent(event) {
+  if (!state.layer6?.shown || !state.layer6.open) {
+    return false;
+  }
+  const frame = state.layer6.sprite?.currentFrame;
+  return isWorldPointInsideFrame(pointerToWorld(event), frame, 80);
 }
 
 function fadeAudio(audio, targetVolume, duration = 1300) {
@@ -2037,6 +2050,10 @@ async function loadStage() {
 viewport.addEventListener("pointerdown", (event) => {
   if (window.crystalBallViewer?.visible) {
     event.stopPropagation();
+    return;
+  }
+  if (shouldOpenLayer6FromEvent(event)) {
+    state.layer6.open(event);
     return;
   }
   requestLandscapeMode();
