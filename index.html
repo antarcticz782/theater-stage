@@ -12,7 +12,7 @@
         }
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=20260527-05">
+    <link rel="stylesheet" href="styles.css?v=20260527-06">
   </head>
   <body class="app-loading">
     <main id="viewport" aria-label="剧院舞台">
@@ -38,7 +38,11 @@
       <canvas id="crystal-ball-canvas"></canvas>
       <div id="crystal-ball-status" aria-live="polite"></div>
     </div>
-    <script src="app.js?v=20260527-05"></script>
-    <script type="module" src="crystal-ball.js?v=20260527-05"></script>
+    <div id="letter-viewer" aria-hidden="true">
+      <button id="letter-close" type="button" aria-label="关闭信纸">×</button>
+      <img id="letter-image" alt="信纸">
+    </div>
+    <script src="app.js?v=20260527-06"></script>
+    <script type="module" src="crystal-ball.js?v=20260527-06"></script>
   </body>
 </html>

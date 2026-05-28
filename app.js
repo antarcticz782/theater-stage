@@ -6,6 +6,9 @@ const loadingBarFill = document.getElementById("loading-bar-fill");
 const loadingPercent = document.getElementById("loading-percent");
 const loadingError = document.getElementById("loading-error");
 const rotateDeviceHint = document.getElementById("rotate-device-hint");
+const letterViewer = document.getElementById("letter-viewer");
+const letterClose = document.getElementById("letter-close");
+const letterImage = document.getElementById("letter-image");
 
 document.body.classList.add("app-loading");
 
@@ -61,6 +64,7 @@ const state = {
   moth: null,
   layer6: null,
   musicBox: null,
+  letter: null,
 
   audioContext: null,
   chirpAudio: null,
@@ -80,6 +84,7 @@ const state = {
   doorAudio: null,
   bloomAudio: null,
   musicBoxAudio: null,
+  birthdayAudio: null,
   curtainAudio: null,
   leafAudio: null,
   umAudio: null,
@@ -255,6 +260,9 @@ async function preloadCrystalBallModel(onProgressCallback = () => {}) {
 async function preloadManifestAssets(manifest) {
   const imageUrls = [...collectSrcValues(manifest)]
     .filter((url) => /\.(png|jpe?g|webp|gif|avif)(\?|$)/i.test(url));
+  if (manifest.letterImage) {
+    imageUrls.push(versionedSrc(manifest.letterImage));
+  }
   const audioUrls = Object.values(manifest.audio || {})
     .filter((url) => typeof url === "string")
     .map((url) => versionedSrc(url));
@@ -1482,7 +1490,7 @@ function setupMusicBox(manifest) {
   state.musicBox = { frames, sprite, hitbox, frameRate: manifest.musicBoxFrameRate || 3, playing: false, timer: null };
   const handleClick = (event) => {
     initializeAudio();
-    if (!interactionsReady() || state.musicBox.playing) {
+    if (!interactionsReady() || state.musicBox.playing || isBirthdayMusicPlaying()) {
       return;
     }
     event.stopPropagation();
@@ -1490,6 +1498,19 @@ function setupMusicBox(manifest) {
   };
   sprite.element.addEventListener("pointerdown", handleClick);
   hitbox.addEventListener("pointerdown", handleClick);
+}
+
+function isBirthdayMusicPlaying() {
+  return Boolean(state.birthdayAudio && !state.birthdayAudio.paused && !state.birthdayAudio.ended);
+}
+
+function stopMusicBoxAudioForBirthday() {
+  if (state.musicBoxAudio) {
+    state.musicBoxAudio.pause();
+    state.musicBoxAudio.currentTime = 0;
+    state.musicBoxAudio.onended = null;
+  }
+  stopMusicBox();
 }
 
 function setMusicBoxFrame(frame) {
@@ -1539,6 +1560,100 @@ function stopMusicBox() {
     state.musicBox.timer = null;
   }
   setMusicBoxFrame(state.musicBox.frames[0]);
+}
+
+function setupLetter(manifest) {
+  const frames = manifest.letterFrames || [];
+  if (frames.length === 0 || !manifest.letterImage || !letterViewer || !letterImage) {
+    return;
+  }
+  const sprite = createSprite(frames[0], "letter-trigger", frames[0].zIndex);
+  const hitbox = document.createElement("div");
+  hitbox.className = "letter-hitbox";
+  stage.appendChild(hitbox);
+
+  const bounds = frames.reduce(
+    (box, frame) => ({
+      left: Math.min(box.left, frame.left),
+      top: Math.min(box.top, frame.top),
+      right: Math.max(box.right, frame.left + frame.width),
+      bottom: Math.max(box.bottom, frame.top + frame.height),
+    }),
+    {
+      left: frames[0].left,
+      top: frames[0].top,
+      right: frames[0].left + frames[0].width,
+      bottom: frames[0].top + frames[0].height,
+    },
+  );
+  hitbox.style.left = `${bounds.left - 36}px`;
+  hitbox.style.top = `${bounds.top - 36}px`;
+  hitbox.style.width = `${bounds.right - bounds.left + 72}px`;
+  hitbox.style.height = `${bounds.bottom - bounds.top + 72}px`;
+
+  letterImage.src = versionedSrc(manifest.letterImage);
+  state.letter = {
+    frames,
+    sprite,
+    hitbox,
+    openedOnce: false,
+    visible: false,
+  };
+
+  const handleClick = (event) => {
+    if (!interactionsReady()) {
+      return;
+    }
+    event.stopPropagation();
+    event.preventDefault();
+    openLetterViewer();
+  };
+  sprite.element.addEventListener("pointerdown", handleClick);
+  hitbox.addEventListener("pointerdown", handleClick);
+}
+
+function setLetterFrame(frame) {
+  if (!state.letter || !frame) {
+    return;
+  }
+  setSpriteFrame(state.letter.sprite, frame);
+}
+
+function startBirthdayMusicForLetter() {
+  if (!state.birthdayAudio) {
+    return;
+  }
+  stopMusicBoxAudioForBirthday();
+  state.birthdayAudio.loop = true;
+  if (state.birthdayAudio.paused || state.birthdayAudio.ended) {
+    state.birthdayAudio.currentTime = 0;
+  }
+  state.birthdayAudio.play().catch(() => {});
+}
+
+function openLetterViewer() {
+  if (!state.letter || !letterViewer) {
+    return;
+  }
+  const openFrame = state.letter.frames[1] || state.letter.frames[0];
+  setLetterFrame(openFrame);
+  state.letter.openedOnce = true;
+  state.letter.visible = true;
+  letterViewer.classList.add("visible");
+  letterViewer.setAttribute("aria-hidden", "false");
+  startBirthdayMusicForLetter();
+}
+
+function closeLetterViewer() {
+  if (!state.letter || !letterViewer) {
+    return;
+  }
+  state.letter.visible = false;
+  letterViewer.classList.remove("visible");
+  letterViewer.setAttribute("aria-hidden", "true");
+  if (state.birthdayAudio) {
+    state.birthdayAudio.loop = false;
+  }
 }
 
 function ensureClockAnalyser() {
@@ -2004,6 +2119,9 @@ async function loadStage() {
   if (manifest.audio?.musicBox) {
     state.musicBoxAudio = new Audio(versionedSrc(manifest.audio.musicBox));
   }
+  if (manifest.audio?.birthday) {
+    state.birthdayAudio = new Audio(versionedSrc(manifest.audio.birthday));
+  }
   if (manifest.audio?.curtain) {
     state.curtainAudio = new Audio(versionedSrc(manifest.audio.curtain));
   }
@@ -2035,6 +2153,7 @@ async function loadStage() {
   setupAreaSwitch(manifest);
   setupPendulum(manifest);
   setupMusicBox(manifest);
+  setupLetter(manifest);
   setupClockHand(manifest);
   setupMoth(manifest);
   setupLayer6(manifest);
@@ -2048,6 +2167,10 @@ async function loadStage() {
 }
 
 viewport.addEventListener("pointerdown", (event) => {
+  if (state.letter?.visible) {
+    event.stopPropagation();
+    return;
+  }
   if (window.crystalBallViewer?.visible) {
     event.stopPropagation();
     return;
@@ -2083,6 +2206,13 @@ viewport.addEventListener("pointermove", updateClockHover);
 viewport.addEventListener("mousemove", updateClockHover);
 viewport.addEventListener("pointerleave", () => setClockPaused(false));
 viewport.addEventListener("mouseleave", () => setClockPaused(false));
+letterClose?.addEventListener("pointerdown", (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+  closeLetterViewer();
+});
+letterViewer?.addEventListener("pointerdown", (event) => event.stopPropagation());
+letterViewer?.addEventListener("click", (event) => event.stopPropagation());
 window.addEventListener("resize", () => {
   resizeStage();
   updateOrientationHint();

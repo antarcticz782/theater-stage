@@ -10,7 +10,7 @@
     {
       "name": "1-1",
       "role": "curtain",
-      "src": "assets/layers/083_1_1-1.png",
+      "src": "assets/layers/084_1_1-1.png",
       "left": -186,
       "top": -2,
       "width": 2709,
@@ -28,7 +28,7 @@
     {
       "name": "1-2",
       "role": "curtain",
-      "src": "assets/layers/082_1_1-2.png",
+      "src": "assets/layers/083_1_1-2.png",
       "left": -186,
       "top": -3,
       "width": 2850,
@@ -46,7 +46,7 @@
     {
       "name": "1-3",
       "role": "curtain",
-      "src": "assets/layers/081_1_1-3.png",
+      "src": "assets/layers/082_1_1-3.png",
       "left": -186,
       "top": 0,
       "width": 2678,
@@ -64,7 +64,7 @@
     {
       "name": "1-4",
       "role": "curtain",
-      "src": "assets/layers/080_1_1-4.png",
+      "src": "assets/layers/081_1_1-4.png",
       "left": -186,
       "top": 0,
       "width": 2686,
@@ -464,7 +464,7 @@
         {
           "name": "2-3-1",
           "role": "flower",
-          "src": "assets/layers/053_新建组_2-1-4_2-3-1.png",
+          "src": "assets/layers/054_新建组_2-1-4_2-3-1.png",
           "left": 826,
           "top": 1044,
           "width": 121,
@@ -482,7 +482,7 @@
         {
           "name": "2-3-2",
           "role": "flower",
-          "src": "assets/layers/054_新建组_2-1-4_2-3-2.png",
+          "src": "assets/layers/055_新建组_2-1-4_2-3-2.png",
           "left": 828,
           "top": 1044,
           "width": 121,
@@ -500,7 +500,7 @@
         {
           "name": "2-3-3",
           "role": "flower",
-          "src": "assets/layers/055_新建组_2-1-4_2-3-3.png",
+          "src": "assets/layers/056_新建组_2-1-4_2-3-3.png",
           "left": 827,
           "top": 1044,
           "width": 127,
@@ -526,7 +526,7 @@
         {
           "name": "2-2-1",
           "role": "flower",
-          "src": "assets/layers/056_新建组_2-1-3_2-2-1.png",
+          "src": "assets/layers/057_新建组_2-1-3_2-2-1.png",
           "left": 11,
           "top": 1043,
           "width": 121,
@@ -544,7 +544,7 @@
         {
           "name": "2-2-2",
           "role": "flower",
-          "src": "assets/layers/057_新建组_2-1-3_2-2-2.png",
+          "src": "assets/layers/058_新建组_2-1-3_2-2-2.png",
           "left": 11,
           "top": 1040,
           "width": 121,
@@ -562,7 +562,7 @@
         {
           "name": "2-2-3",
           "role": "flower",
-          "src": "assets/layers/058_新建组_2-1-3_2-2-3.png",
+          "src": "assets/layers/059_新建组_2-1-3_2-2-3.png",
           "left": 11,
           "top": 1041,
           "width": 127,
@@ -588,7 +588,7 @@
         {
           "name": "2-2-1",
           "role": "flower",
-          "src": "assets/layers/059_新建组_2-1-4_2-2-1.png",
+          "src": "assets/layers/060_新建组_2-1-4_2-2-1.png",
           "left": 338,
           "top": 983,
           "width": 121,
@@ -606,7 +606,7 @@
         {
           "name": "2-2-2",
           "role": "flower",
-          "src": "assets/layers/060_新建组_2-1-4_2-2-2.png",
+          "src": "assets/layers/061_新建组_2-1-4_2-2-2.png",
           "left": 338,
           "top": 980,
           "width": 121,
@@ -624,7 +624,7 @@
         {
           "name": "2-2-3",
           "role": "flower",
-          "src": "assets/layers/061_新建组_2-1-4_2-2-3.png",
+          "src": "assets/layers/062_新建组_2-1-4_2-2-3.png",
           "left": 338,
           "top": 981,
           "width": 127,
@@ -650,7 +650,7 @@
         {
           "name": "2-1-1",
           "role": "flower",
-          "src": "assets/layers/062_新建组_2-1-2_2-1-1.png",
+          "src": "assets/layers/063_新建组_2-1-2_2-1-1.png",
           "left": 2534,
           "top": 1050,
           "width": 121,
@@ -668,7 +668,7 @@
         {
           "name": "2-1-2",
           "role": "flower",
-          "src": "assets/layers/063_新建组_2-1-2_2-1-2.png",
+          "src": "assets/layers/064_新建组_2-1-2_2-1-2.png",
           "left": 2533,
           "top": 1047,
           "width": 121,
@@ -686,7 +686,7 @@
         {
           "name": "2-1-3",
           "role": "flower",
-          "src": "assets/layers/064_新建组_2-1-2_2-1-3.png",
+          "src": "assets/layers/065_新建组_2-1-2_2-1-3.png",
           "left": 2532,
           "top": 1047,
           "width": 127,
@@ -712,7 +712,7 @@
         {
           "name": "2-1-1",
           "role": "flower",
-          "src": "assets/layers/065_新建组_2-1-1_2-1-1.png",
+          "src": "assets/layers/066_新建组_2-1-1_2-1-1.png",
           "left": 2141,
           "top": 1003,
           "width": 121,
@@ -730,7 +730,7 @@
         {
           "name": "2-1-2",
           "role": "flower",
-          "src": "assets/layers/066_新建组_2-1-1_2-1-2.png",
+          "src": "assets/layers/067_新建组_2-1-1_2-1-2.png",
           "left": 2140,
           "top": 1000,
           "width": 121,
@@ -748,7 +748,7 @@
         {
           "name": "2-1-3",
           "role": "flower",
-          "src": "assets/layers/067_新建组_2-1-1_2-1-3.png",
+          "src": "assets/layers/068_新建组_2-1-1_2-1-3.png",
           "left": 2139,
           "top": 1000,
           "width": 127,
@@ -953,7 +953,7 @@
   "keyLayer": {
     "name": "4",
     "role": "key",
-    "src": "assets/layers/079_4.png",
+    "src": "assets/layers/080_4.png",
     "left": 1813,
     "top": 598,
     "width": 216,
@@ -971,7 +971,7 @@
     {
       "name": "3-1",
       "role": "area-switch",
-      "src": "assets/layers/052_新建组_3_3-1.png",
+      "src": "assets/layers/053_新建组_3_3-1.png",
       "left": 3155,
       "top": 548,
       "width": 178,
@@ -989,7 +989,7 @@
     {
       "name": "3-3",
       "role": "area-switch",
-      "src": "assets/layers/050_新建组_3_3-3.png",
+      "src": "assets/layers/051_新建组_3_3-3.png",
       "left": 2796,
       "top": 514,
       "width": 202,
@@ -1214,7 +1214,7 @@
   "layer6": {
     "name": "6",
     "role": "magic-reveal",
-    "src": "assets/layers/049_新建组_6.png",
+    "src": "assets/layers/050_新建组_6.png",
     "left": 4318,
     "top": 852,
     "width": 125,
@@ -1232,7 +1232,7 @@
     {
       "name": "1",
       "role": "butterfly",
-      "src": "assets/layers/068_新建组_蝴蝶_1.png",
+      "src": "assets/layers/069_新建组_蝴蝶_1.png",
       "left": 783,
       "top": 756,
       "width": 66,
@@ -1250,7 +1250,7 @@
     {
       "name": "2",
       "role": "butterfly",
-      "src": "assets/layers/069_新建组_蝴蝶_2.png",
+      "src": "assets/layers/070_新建组_蝴蝶_2.png",
       "left": 774,
       "top": 768,
       "width": 78,
@@ -1276,7 +1276,7 @@
         {
           "name": "1",
           "role": "butterfly",
-          "src": "assets/layers/068_新建组_蝴蝶_1.png",
+          "src": "assets/layers/069_新建组_蝴蝶_1.png",
           "left": 783,
           "top": 756,
           "width": 66,
@@ -1294,7 +1294,7 @@
         {
           "name": "2",
           "role": "butterfly",
-          "src": "assets/layers/069_新建组_蝴蝶_2.png",
+          "src": "assets/layers/070_新建组_蝴蝶_2.png",
           "left": 774,
           "top": 768,
           "width": 78,
@@ -1320,7 +1320,7 @@
         {
           "name": "1",
           "role": "butterfly",
-          "src": "assets/layers/070_新建组_蝴蝶2_1.png",
+          "src": "assets/layers/071_新建组_蝴蝶2_1.png",
           "left": 1355,
           "top": 720,
           "width": 66,
@@ -1338,7 +1338,7 @@
         {
           "name": "2",
           "role": "butterfly",
-          "src": "assets/layers/071_新建组_蝴蝶2_2.png",
+          "src": "assets/layers/072_新建组_蝴蝶2_2.png",
           "left": 1346,
           "top": 732,
           "width": 78,
@@ -1364,7 +1364,7 @@
         {
           "name": "1",
           "role": "butterfly",
-          "src": "assets/layers/072_新建组_蝴蝶3_1.png",
+          "src": "assets/layers/073_新建组_蝴蝶3_1.png",
           "left": 1838,
           "top": 594,
           "width": 66,
@@ -1382,7 +1382,7 @@
         {
           "name": "2",
           "role": "butterfly",
-          "src": "assets/layers/073_新建组_蝴蝶3_2.png",
+          "src": "assets/layers/074_新建组_蝴蝶3_2.png",
           "left": 1829,
           "top": 606,
           "width": 78,
@@ -1405,7 +1405,7 @@
     {
       "name": "1",
       "role": "music-box",
-      "src": "assets/layers/074_新建组_八音盒_1.png",
+      "src": "assets/layers/075_新建组_八音盒_1.png",
       "left": 4184,
       "top": 947,
       "width": 114,
@@ -1423,7 +1423,7 @@
     {
       "name": "2",
       "role": "music-box",
-      "src": "assets/layers/075_新建组_八音盒_2.png",
+      "src": "assets/layers/076_新建组_八音盒_2.png",
       "left": 4184,
       "top": 897,
       "width": 115,
@@ -1441,7 +1441,7 @@
     {
       "name": "3",
       "role": "music-box",
-      "src": "assets/layers/076_新建组_八音盒_3.png",
+      "src": "assets/layers/077_新建组_八音盒_3.png",
       "left": 4184,
       "top": 897,
       "width": 115,
@@ -1459,7 +1459,7 @@
     {
       "name": "4",
       "role": "music-box",
-      "src": "assets/layers/077_新建组_八音盒_4.png",
+      "src": "assets/layers/078_新建组_八音盒_4.png",
       "left": 4184,
       "top": 897,
       "width": 115,
@@ -1477,7 +1477,7 @@
     {
       "name": "5",
       "role": "music-box",
-      "src": "assets/layers/078_新建组_八音盒_5.png",
+      "src": "assets/layers/079_新建组_八音盒_5.png",
       "left": 4184,
       "top": 897,
       "width": 115,
@@ -1493,11 +1493,50 @@
       "frameIndex": 4
     }
   ],
+  "letterFrames": [
+    {
+      "name": "13-1",
+      "role": "letter-trigger",
+      "src": "assets/layers/049_新建组_13_13-1.png",
+      "left": 3979,
+      "top": 956,
+      "width": 137,
+      "height": 93,
+      "sourceLeft": 0,
+      "sourceTop": 0,
+      "sourceWidth": 5535,
+      "sourceHeight": 1259,
+      "zIndex": 21,
+      "opacity": 1.0,
+      "isActor": false,
+      "path": "新建组/13/13-1",
+      "frameIndex": 0
+    },
+    {
+      "name": "13-2",
+      "role": "letter-trigger",
+      "src": "assets/layers/048_新建组_13_13-2.png",
+      "left": 3978,
+      "top": 910,
+      "width": 141,
+      "height": 139,
+      "sourceLeft": 0,
+      "sourceTop": 0,
+      "sourceWidth": 5535,
+      "sourceHeight": 1259,
+      "zIndex": 21,
+      "opacity": 1.0,
+      "isActor": false,
+      "path": "新建组/13/13-2",
+      "frameIndex": 1
+    }
+  ],
+  "letterImage": "assets/letter/letter-1.jpg",
   "titleLayers": [
     {
       "name": "5",
       "role": "title",
-      "src": "assets/layers/084_1_标题_5.png",
+      "src": "assets/layers/085_1_标题_5.png",
       "left": 1339,
       "top": 667,
       "width": 69,
@@ -1515,7 +1554,7 @@
     {
       "name": "29",
       "role": "title",
-      "src": "assets/layers/085_1_标题_29.png",
+      "src": "assets/layers/086_1_标题_29.png",
       "left": 1444,
       "top": 662,
       "width": 112,
@@ -1533,7 +1572,7 @@
     {
       "name": "26",
       "role": "title",
-      "src": "assets/layers/086_1_标题_26.png",
+      "src": "assets/layers/087_1_标题_26.png",
       "left": 1597,
       "top": 662,
       "width": 113,
@@ -1551,7 +1590,7 @@
     {
       "name": "时间",
       "role": "title",
-      "src": "assets/layers/087_1_标题_时间.png",
+      "src": "assets/layers/088_1_标题_时间.png",
       "left": 1408,
       "top": 688,
       "width": 189,
@@ -1569,7 +1608,7 @@
     {
       "name": "Anoxia",
       "role": "title",
-      "src": "assets/layers/088_1_标题_Anoxia.png",
+      "src": "assets/layers/089_1_标题_Anoxia.png",
       "left": 685,
       "top": 383,
       "width": 395,
@@ -1587,7 +1626,7 @@
     {
       "name": "Elysia",
       "role": "title",
-      "src": "assets/layers/089_1_标题_Elysia.png",
+      "src": "assets/layers/090_1_标题_Elysia.png",
       "left": 1277,
       "top": 387,
       "width": 352,
@@ -1605,7 +1644,7 @@
     {
       "name": "to",
       "role": "title",
-      "src": "assets/layers/090_1_标题_to.png",
+      "src": "assets/layers/091_1_标题_to.png",
       "left": 1114,
       "top": 394,
       "width": 129,
@@ -1623,7 +1662,7 @@
     {
       "name": "May you always find a forest that remembers you, and a room tha",
       "role": "title",
-      "src": "assets/layers/091_1_标题_May_you_always_find_a_forest_that_remembers_you_and_a_room_tha.png",
+      "src": "assets/layers/092_1_标题_May_you_always_find_a_forest_that_remembers_you_and_a_room_tha.png",
       "left": 371,
       "top": 1080,
       "width": 1530,
@@ -1651,7 +1690,8 @@
     "musicBox": "assets/audio/music_box.mp3",
     "curtain": "assets/audio/curtain_open.mp3",
     "leaf": "assets/audio/leaf.mp3",
-    "um": "assets/audio/um.mp3"
+    "um": "assets/audio/um.mp3",
+    "birthday": "assets/audio/happy_birthday_music_box.mp3"
   },
   "layers": [
     {
@@ -1808,26 +1848,9 @@
       "path": "新建组/12"
     },
     {
-      "name": "13-1",
-      "role": "stage",
-      "src": "assets/layers/048_新建组_13_13-1.png",
-      "left": 3979,
-      "top": 956,
-      "width": 137,
-      "height": 93,
-      "sourceLeft": 0,
-      "sourceTop": 0,
-      "sourceWidth": 5535,
-      "sourceHeight": 1259,
-      "zIndex": 21,
-      "opacity": 1.0,
-      "isActor": false,
-      "path": "新建组/13/13-1"
-    },
-    {
       "name": "3-2",
       "role": "stage",
-      "src": "assets/layers/051_新建组_3_3-2.png",
+      "src": "assets/layers/052_新建组_3_3-2.png",
       "left": 2975,
       "top": 0,
       "width": 422,
