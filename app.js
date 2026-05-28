@@ -67,6 +67,7 @@ const state = {
   letter: null,
 
   audioContext: null,
+  audioPrimed: false,
   chirpAudio: null,
   chirpAnalyser: null,
   chirpData: null,
@@ -332,6 +333,57 @@ function playLayeredOneShot(audio) {
   });
 }
 
+function prepareAudio(audio) {
+  if (!audio) {
+    return audio;
+  }
+  audio.preload = "auto";
+  audio.setAttribute("playsinline", "");
+  audio.load();
+  return audio;
+}
+
+function interactiveAudioElements() {
+  return [
+    state.chirpAudio,
+    state.fireAudio,
+    state.showAudio,
+    state.doorAudio,
+    state.bloomAudio,
+    state.musicBoxAudio,
+    state.curtainAudio,
+    state.leafAudio,
+    state.umAudio,
+  ].filter(Boolean);
+}
+
+function primeInteractiveAudio() {
+  if (state.audioPrimed) {
+    return;
+  }
+  state.audioPrimed = true;
+  for (const audio of interactiveAudioElements()) {
+    const probe = audio.cloneNode(true);
+    probe.preload = "auto";
+    probe.volume = 0;
+    probe.muted = true;
+    probe.loop = false;
+    let cleaned = false;
+    const cleanup = () => {
+      if (cleaned) {
+        return;
+      }
+      cleaned = true;
+      probe.pause();
+      probe.removeAttribute("src");
+      probe.load();
+    };
+
+    probe.play().then(cleanup).catch(cleanup);
+    window.setTimeout(cleanup, 160);
+  }
+}
+
 function interactionsReady() {
   return state.actorAwake && performance.now() >= state.interactionsUnlockedAt && !isKeySequenceBlocking();
 }
@@ -350,6 +402,7 @@ function initializeAudio() {
   if (state.audioContext?.state === "suspended") {
     state.audioContext.resume().catch(() => {});
   }
+  primeInteractiveAudio();
   if (!state.bgm.unlocked) {
     state.bgm.unlocked = true;
     startBackgroundMusic();
@@ -2242,45 +2295,45 @@ async function loadStage() {
   await preloadManifestAssets(manifest);
 
   if (manifest.audio?.chirp) {
-    state.chirpAudio = new Audio(versionedSrc(manifest.audio.chirp));
+    state.chirpAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.chirp)));
     state.chirpAudio.loop = true;
   }
   if (manifest.audio?.forest) {
-    state.bgm.forest = new Audio(versionedSrc(manifest.audio.forest));
+    state.bgm.forest = prepareAudio(new Audio(versionedSrc(manifest.audio.forest)));
     state.bgm.forest.loop = true;
   }
   if (manifest.audio?.house) {
-    state.bgm.house = new Audio(versionedSrc(manifest.audio.house));
+    state.bgm.house = prepareAudio(new Audio(versionedSrc(manifest.audio.house)));
     state.bgm.house.loop = true;
   }
   if (manifest.audio?.show) {
-    state.showAudio = new Audio(versionedSrc(manifest.audio.show));
+    state.showAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.show)));
   }
   if (manifest.audio?.door) {
-    state.doorAudio = new Audio(versionedSrc(manifest.audio.door));
+    state.doorAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.door)));
   }
   if (manifest.audio?.bloom) {
-    state.bloomAudio = new Audio(versionedSrc(manifest.audio.bloom));
+    state.bloomAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.bloom)));
   }
   if (manifest.audio?.musicBox) {
-    state.musicBoxAudio = new Audio(versionedSrc(manifest.audio.musicBox));
+    state.musicBoxAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.musicBox)));
   }
   if (manifest.audio?.curtain) {
-    state.curtainAudio = new Audio(versionedSrc(manifest.audio.curtain));
+    state.curtainAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.curtain)));
   }
   if (manifest.audio?.leaf) {
-    state.leafAudio = new Audio(versionedSrc(manifest.audio.leaf));
+    state.leafAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.leaf)));
   }
   if (manifest.audio?.um) {
-    state.umAudio = new Audio(versionedSrc(manifest.audio.um));
+    state.umAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.um)));
   }
   if (manifest.audio?.clock) {
-    state.clockAudio = new Audio(versionedSrc(manifest.audio.clock));
+    state.clockAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.clock)));
     state.clockAudio.loop = true;
     state.clockAudio.volume = 0;
   }
   if (manifest.audio?.fire) {
-    state.fireAudio = new Audio(versionedSrc(manifest.audio.fire));
+    state.fireAudio = prepareAudio(new Audio(versionedSrc(manifest.audio.fire)));
     state.fireAudio.loop = true;
   }
 
