@@ -69,6 +69,7 @@ class CrystalBallViewer {
     this.loadingPromise = null;
     this.visible = false;
     this.animationFrame = null;
+    this.lastAnimationTime = 0;
     this.settings = { ...DEFAULT_RENDER_SETTINGS };
 
     this.closeButton?.addEventListener("click", () => this.hide());
@@ -85,12 +86,14 @@ class CrystalBallViewer {
     this.container.classList.add("visible");
     this.container.setAttribute("aria-hidden", "false");
     this.visible = true;
+    this.lastAnimationTime = 0;
     if (!this.model) {
       this.setStatus("模型加载中...");
     }
     try {
       await this.ensureLoaded();
       this.applyModelOrientation();
+      this.applySettings();
       this.resize();
       this.controls?.update();
       this.animate();
@@ -109,6 +112,7 @@ class CrystalBallViewer {
       cancelAnimationFrame(this.animationFrame);
       this.animationFrame = null;
     }
+    this.lastAnimationTime = 0;
   }
 
   async ensureLoaded() {
@@ -286,6 +290,12 @@ class CrystalBallViewer {
     if (!this.visible || !this.renderer || !this.scene || !this.camera || !this.modelRoot) {
       return;
     }
+    const now = performance.now();
+    const deltaSeconds = this.lastAnimationTime ? Math.min((now - this.lastAnimationTime) / 1000, 0.05) : 0;
+    this.lastAnimationTime = now;
+    if (this.model && isTouchScreen() && isVirtualLandscapeMode() && this.settings.autoRotate > 0) {
+      this.model.rotation.y += deltaSeconds * this.settings.autoRotate * 0.72;
+    }
     this.controls?.update();
     this.renderer.render(this.scene, this.camera);
     this.animationFrame = requestAnimationFrame(() => this.animate());
@@ -310,8 +320,9 @@ class CrystalBallViewer {
       this.modelRoot.scale.setScalar(this.settings.modelScale);
     }
     if (this.controls) {
-      this.controls.autoRotateSpeed = this.settings.autoRotate;
-      this.controls.autoRotate = this.settings.autoRotate > 0;
+      const manualMobileRotate = isTouchScreen() && isVirtualLandscapeMode();
+      this.controls.autoRotateSpeed = manualMobileRotate ? 0 : this.settings.autoRotate;
+      this.controls.autoRotate = !manualMobileRotate && this.settings.autoRotate > 0;
     }
     if (this.glassMaterial) {
       this.glassMaterial.opacity = this.settings.glassOpacity;
@@ -373,11 +384,13 @@ window.crystalBallViewer = viewer;
 window.dispatchEvent(new Event("crystal-ball-ready"));
 window.addEventListener("resize", () => {
   viewer.applyModelOrientation();
+  viewer.applySettings();
   viewer.resize();
 });
 window.addEventListener("orientationchange", () => {
   window.setTimeout(() => {
     viewer.applyModelOrientation();
+    viewer.applySettings();
     viewer.resize();
   }, 160);
 });

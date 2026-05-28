@@ -1,7 +1,7 @@
 {
   "canvasWidth": 5535,
   "canvasHeight": 1259,
-  "assetVersion": 1779764699,
+  "assetVersion": 2026052801,
   "actorName": "7-3",
   "actorMoveRightLimit": 4550,
   "displayWorldWidth": 2300,
@@ -20,7 +20,7 @@
       "sourceWidth": 2709,
       "sourceHeight": 1258,
       "zIndex": 34,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/1-1",
       "frameIndex": 0
@@ -38,7 +38,7 @@
       "sourceWidth": 2850,
       "sourceHeight": 1257,
       "zIndex": 34,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/1-2",
       "frameIndex": 1
@@ -56,7 +56,7 @@
       "sourceWidth": 2678,
       "sourceHeight": 1247,
       "zIndex": 34,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/1-3",
       "frameIndex": 2
@@ -74,7 +74,7 @@
       "sourceWidth": 2686,
       "sourceHeight": 1259,
       "zIndex": 34,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/1-4",
       "frameIndex": 3
@@ -95,7 +95,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 19,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/7/7-1",
       "frameIndex": 0
@@ -113,7 +113,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 19,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/7/7-2",
       "frameIndex": 1
@@ -131,7 +131,7 @@
       "sourceWidth": 352,
       "sourceHeight": 211,
       "zIndex": 18,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": true,
       "actorBounds": {
         "left": 54,
@@ -164,7 +164,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 9,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-3/2-1-1",
           "frameIndex": 0
@@ -182,7 +182,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 9,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-3/2-1-2",
           "frameIndex": 1
@@ -200,7 +200,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 9,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-3/2-1-3",
           "frameIndex": 2
@@ -226,7 +226,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 10,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-2/2-3-1",
           "frameIndex": 0
@@ -244,7 +244,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 10,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-2/2-3-2",
           "frameIndex": 1
@@ -262,7 +262,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 10,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-2/2-3-3",
           "frameIndex": 2
@@ -288,7 +288,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 11,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-1/2-2-1",
           "frameIndex": 0
@@ -306,7 +306,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 11,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-1/2-2-2",
           "frameIndex": 1
@@ -324,7 +324,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 11,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-1/2-2-3",
           "frameIndex": 2
@@ -350,7 +350,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 12,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-1/2-2-1",
           "frameIndex": 0
@@ -368,7 +368,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 12,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-1/2-2-2",
           "frameIndex": 1
@@ -386,7 +386,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 12,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2-1/2-2-3",
           "frameIndex": 2
@@ -412,7 +412,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 13,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2/2-2-1",
           "frameIndex": 0
@@ -430,7 +430,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 13,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2/2-2-2",
           "frameIndex": 1
@@ -448,7 +448,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 13,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-2/2-2-3",
           "frameIndex": 2
@@ -474,7 +474,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 25,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-4/2-3-1",
           "frameIndex": 0
@@ -492,7 +492,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 25,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-4/2-3-2",
           "frameIndex": 1
@@ -510,7 +510,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 25,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-4/2-3-3",
           "frameIndex": 2
@@ -536,7 +536,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 26,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-3/2-2-1",
           "frameIndex": 0
@@ -554,7 +554,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 26,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-3/2-2-2",
           "frameIndex": 1
@@ -572,7 +572,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 26,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-3/2-2-3",
           "frameIndex": 2
@@ -598,7 +598,7 @@
           "sourceWidth": 121,
           "sourceHeight": 204,
           "zIndex": 27,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-4/2-2-1",
           "frameIndex": 0
@@ -616,7 +616,7 @@
           "sourceWidth": 121,
           "sourceHeight": 207,
           "zIndex": 27,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-4/2-2-2",
           "frameIndex": 1
@@ -634,7 +634,7 @@
           "sourceWidth": 127,
           "sourceHeight": 207,
           "zIndex": 27,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-4/2-2-3",
           "frameIndex": 2
@@ -660,7 +660,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 28,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-2/2-1-1",
           "frameIndex": 0
@@ -678,7 +678,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 28,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-2/2-1-2",
           "frameIndex": 1
@@ -696,7 +696,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 28,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-2/2-1-3",
           "frameIndex": 2
@@ -722,7 +722,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 29,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-1/2-1-1",
           "frameIndex": 0
@@ -740,7 +740,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 29,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-1/2-1-2",
           "frameIndex": 1
@@ -758,7 +758,7 @@
           "sourceWidth": 5535,
           "sourceHeight": 1259,
           "zIndex": 29,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/2-1-1/2-1-3",
           "frameIndex": 2
@@ -779,7 +779,7 @@
     "sourceWidth": 5535,
     "sourceHeight": 1259,
     "zIndex": 8,
-    "opacity": 1.0,
+    "opacity": 1,
     "isActor": false,
     "path": "新建组/8"
   },
@@ -797,7 +797,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 7,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/9/9-1",
       "frameIndex": 0
@@ -815,7 +815,7 @@
       "sourceWidth": 453,
       "sourceHeight": 260,
       "zIndex": 8,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/9/9-2",
       "frameIndex": 1
@@ -836,7 +836,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 16,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/5-1",
       "frameIndex": 0
@@ -854,7 +854,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 17,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/5-2",
       "frameIndex": 1
@@ -872,7 +872,7 @@
       "sourceWidth": 202,
       "sourceHeight": 199,
       "zIndex": 17,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/5-3",
       "frameIndex": 2
@@ -890,7 +890,7 @@
       "sourceWidth": 202,
       "sourceHeight": 242,
       "zIndex": 17,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/5-4",
       "frameIndex": 3
@@ -908,7 +908,7 @@
       "sourceWidth": 249,
       "sourceHeight": 256,
       "zIndex": 17,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/5-5",
       "frameIndex": 4
@@ -926,7 +926,7 @@
       "sourceWidth": 197,
       "sourceHeight": 187,
       "zIndex": 17,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/5-6",
       "frameIndex": 5
@@ -944,7 +944,7 @@
       "sourceWidth": 309,
       "sourceHeight": 348,
       "zIndex": 17,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/5-7",
       "frameIndex": 6
@@ -963,7 +963,7 @@
     "sourceWidth": 216,
     "sourceHeight": 432,
     "zIndex": 9990,
-    "opacity": 1.0,
+    "opacity": 1,
     "isActor": false,
     "path": "4"
   },
@@ -981,7 +981,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 24,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/3/3-1",
       "frameIndex": 0
@@ -999,7 +999,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 22,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/3/3-3",
       "frameIndex": 1
@@ -1020,7 +1020,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 5,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/11/11-1",
       "frameIndex": 0
@@ -1038,7 +1038,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 5,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/11/11-2",
       "frameIndex": 1
@@ -1056,7 +1056,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 5,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/11/11-3",
       "frameIndex": 2
@@ -1074,7 +1074,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 5,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/11/11-4",
       "frameIndex": 3
@@ -1092,7 +1092,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 5,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/11/11-5",
       "frameIndex": 4
@@ -1111,7 +1111,7 @@
     "sourceWidth": 19,
     "sourceHeight": 146,
     "zIndex": 6,
-    "opacity": 1.0,
+    "opacity": 1,
     "isActor": false,
     "path": "新建组/10",
     "pivot": {
@@ -1133,7 +1133,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 15,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/新建组/图层 77-1",
       "frameIndex": 0
@@ -1151,7 +1151,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 16,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/新建组/图层 77-2",
       "frameIndex": 1
@@ -1169,7 +1169,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 16,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/新建组/图层 77-3",
       "frameIndex": 2
@@ -1187,7 +1187,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 16,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/新建组/图层 77-4",
       "frameIndex": 3
@@ -1205,7 +1205,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 16,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/新建组/图层 77-5",
       "frameIndex": 4
@@ -1224,7 +1224,7 @@
     "sourceWidth": 5535,
     "sourceHeight": 1259,
     "zIndex": 22,
-    "opacity": 1.0,
+    "opacity": 1,
     "isActor": false,
     "path": "新建组/6"
   },
@@ -1242,7 +1242,7 @@
       "sourceWidth": 66,
       "sourceHeight": 83,
       "zIndex": 30,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/蝴蝶/1",
       "frameIndex": 0
@@ -1260,7 +1260,7 @@
       "sourceWidth": 78,
       "sourceHeight": 80,
       "zIndex": 30,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/蝴蝶/2",
       "frameIndex": 1
@@ -1286,7 +1286,7 @@
           "sourceWidth": 66,
           "sourceHeight": 83,
           "zIndex": 30,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/蝴蝶/1",
           "frameIndex": 0
@@ -1304,7 +1304,7 @@
           "sourceWidth": 78,
           "sourceHeight": 80,
           "zIndex": 30,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/蝴蝶/2",
           "frameIndex": 1
@@ -1330,7 +1330,7 @@
           "sourceWidth": 66,
           "sourceHeight": 83,
           "zIndex": 31,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/蝴蝶2/1",
           "frameIndex": 0
@@ -1348,7 +1348,7 @@
           "sourceWidth": 78,
           "sourceHeight": 80,
           "zIndex": 31,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/蝴蝶2/2",
           "frameIndex": 1
@@ -1374,7 +1374,7 @@
           "sourceWidth": 66,
           "sourceHeight": 83,
           "zIndex": 32,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/蝴蝶3/1",
           "frameIndex": 0
@@ -1392,7 +1392,7 @@
           "sourceWidth": 78,
           "sourceHeight": 80,
           "zIndex": 32,
-          "opacity": 1.0,
+          "opacity": 1,
           "isActor": false,
           "path": "新建组/蝴蝶3/2",
           "frameIndex": 1
@@ -1415,7 +1415,7 @@
       "sourceWidth": 114,
       "sourceHeight": 82,
       "zIndex": 33,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/八音盒/1",
       "frameIndex": 0
@@ -1433,7 +1433,7 @@
       "sourceWidth": 115,
       "sourceHeight": 132,
       "zIndex": 33,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/八音盒/2",
       "frameIndex": 1
@@ -1451,7 +1451,7 @@
       "sourceWidth": 115,
       "sourceHeight": 132,
       "zIndex": 33,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/八音盒/3",
       "frameIndex": 2
@@ -1469,7 +1469,7 @@
       "sourceWidth": 115,
       "sourceHeight": 132,
       "zIndex": 33,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/八音盒/4",
       "frameIndex": 3
@@ -1487,7 +1487,7 @@
       "sourceWidth": 115,
       "sourceHeight": 132,
       "zIndex": 33,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/八音盒/5",
       "frameIndex": 4
@@ -1507,7 +1507,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 21,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/13/13-1",
       "frameIndex": 0
@@ -1525,7 +1525,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 21,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/13/13-2",
       "frameIndex": 1
@@ -1546,7 +1546,7 @@
       "sourceWidth": 69,
       "sourceHeight": 78,
       "zIndex": 11000,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/5",
       "isMayYou": false
@@ -1564,7 +1564,7 @@
       "sourceWidth": 112,
       "sourceHeight": 89,
       "zIndex": 11001,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/29",
       "isMayYou": false
@@ -1582,7 +1582,7 @@
       "sourceWidth": 113,
       "sourceHeight": 70,
       "zIndex": 11002,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/26",
       "isMayYou": false
@@ -1600,7 +1600,7 @@
       "sourceWidth": 189,
       "sourceHeight": 19,
       "zIndex": 11003,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/时间",
       "isMayYou": false
@@ -1618,7 +1618,7 @@
       "sourceWidth": 395,
       "sourceHeight": 131,
       "zIndex": 11004,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/Anoxia",
       "isMayYou": false
@@ -1636,7 +1636,7 @@
       "sourceWidth": 352,
       "sourceHeight": 171,
       "zIndex": 11005,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/Elysia",
       "isMayYou": false
@@ -1654,7 +1654,7 @@
       "sourceWidth": 129,
       "sourceHeight": 110,
       "zIndex": 11006,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/to",
       "isMayYou": false
@@ -1672,7 +1672,7 @@
       "sourceWidth": 1530,
       "sourceHeight": 68,
       "zIndex": 11007,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "1/标题/May you always find a forest that remembers you, and a room tha",
       "isMayYou": true
@@ -1690,8 +1690,7 @@
     "musicBox": "assets/audio/music_box.mp3",
     "curtain": "assets/audio/curtain_open.mp3",
     "leaf": "assets/audio/leaf.mp3",
-    "um": "assets/audio/um.mp3",
-    "birthday": "assets/audio/happy_birthday_music_box.mp3"
+    "um": "assets/audio/um.mp3"
   },
   "layers": [
     {
@@ -1707,7 +1706,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 0,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/19"
     },
@@ -1724,7 +1723,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 1,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/18"
     },
@@ -1741,7 +1740,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 2,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/17"
     },
@@ -1758,7 +1757,7 @@
       "sourceWidth": 5299,
       "sourceHeight": 1031,
       "zIndex": 3,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/16"
     },
@@ -1775,7 +1774,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 4,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/15"
     },
@@ -1792,7 +1791,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 14,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/5章鱼/图层 66"
     },
@@ -1809,7 +1808,7 @@
       "sourceWidth": 238,
       "sourceHeight": 559,
       "zIndex": 17,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/3-4"
     },
@@ -1826,7 +1825,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 19,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/14"
     },
@@ -1843,7 +1842,7 @@
       "sourceWidth": 5535,
       "sourceHeight": 1259,
       "zIndex": 20,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/12"
     },
@@ -1860,9 +1859,10 @@
       "sourceWidth": 422,
       "sourceHeight": 1259,
       "zIndex": 23,
-      "opacity": 1.0,
+      "opacity": 1,
       "isActor": false,
       "path": "新建组/3/3-2"
     }
-  ]
+  ],
+  "guideImage": "assets/ui/guide.png"
 }

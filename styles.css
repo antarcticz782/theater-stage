@@ -131,6 +131,20 @@ html.mobile-portrait #stage-window {
   cursor: grabbing;
 }
 
+.viewer-guide {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  top: max(18px, env(safe-area-inset-top));
+  z-index: 30002;
+  width: clamp(58px, 8vmin, 96px);
+  height: auto;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 7px 12px rgba(0, 0, 0, 0.28))
+    drop-shadow(0 0 10px rgba(255, 236, 190, 0.34));
+  animation: guide-breathe 1.65s ease-in-out infinite;
+}
+
 #crystal-ball-status {
   position: fixed;
   left: 50%;
@@ -189,6 +203,7 @@ html.mobile-portrait #stage-window {
   background: rgba(5, 5, 6, 0.78);
   opacity: 0;
   pointer-events: none;
+  touch-action: none;
   transition: opacity 0.38s ease;
 }
 
@@ -202,9 +217,18 @@ html.mobile-portrait #stage-window {
   max-width: min(86vw, 760px);
   max-height: min(84vh, 980px);
   object-fit: contain;
+  cursor: grab;
+  touch-action: none;
+  transform: translate3d(var(--letter-x, 0px), var(--letter-y, 0px), 0) scale(var(--letter-scale, 1));
+  transform-origin: center center;
+  will-change: transform;
   box-shadow:
     0 24px 42px rgba(0, 0, 0, 0.38),
     0 0 0 1px rgba(255, 246, 225, 0.28);
+}
+
+#letter-image:active {
+  cursor: grabbing;
 }
 
 #letter-close {
@@ -225,6 +249,10 @@ html.mobile-portrait #stage-window {
   line-height: 1;
   cursor: pointer;
   box-shadow: 0 5px 16px rgba(34, 22, 13, 0.18);
+}
+
+#letter-viewer .viewer-guide {
+  z-index: 29002;
 }
 
 #rotate-device-hint {
@@ -739,5 +767,18 @@ html.mobile-portrait #stage-window {
 
   50% {
     transform: translateY(-6px);
+  }
+}
+
+@keyframes guide-breathe {
+  0%,
+  100% {
+    opacity: 0.78;
+    transform: scale(0.94);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
   }
 }

@@ -84,7 +84,6 @@ const state = {
   doorAudio: null,
   bloomAudio: null,
   musicBoxAudio: null,
-  birthdayAudio: null,
   curtainAudio: null,
   leafAudio: null,
   umAudio: null,
@@ -262,6 +261,9 @@ async function preloadManifestAssets(manifest) {
     .filter((url) => /\.(png|jpe?g|webp|gif|avif)(\?|$)/i.test(url));
   if (manifest.letterImage) {
     imageUrls.push(versionedSrc(manifest.letterImage));
+  }
+  if (manifest.guideImage) {
+    imageUrls.push(versionedSrc(manifest.guideImage));
   }
   const audioUrls = Object.values(manifest.audio || {})
     .filter((url) => typeof url === "string")
@@ -1487,10 +1489,18 @@ function setupMusicBox(manifest) {
   hitbox.style.height = `${bounds.bottom - bounds.top}px`;
   stage.appendChild(hitbox);
 
-  state.musicBox = { frames, sprite, hitbox, frameRate: manifest.musicBoxFrameRate || 3, playing: false, timer: null };
+  state.musicBox = {
+    frames,
+    sprite,
+    hitbox,
+    frameRate: manifest.musicBoxFrameRate || 3,
+    playing: false,
+    stopping: false,
+    timer: null,
+  };
   const handleClick = (event) => {
     initializeAudio();
-    if (!interactionsReady() || state.musicBox.playing || isBirthdayMusicPlaying()) {
+    if (!interactionsReady() || state.musicBox.playing) {
       return;
     }
     event.stopPropagation();
@@ -1498,19 +1508,6 @@ function setupMusicBox(manifest) {
   };
   sprite.element.addEventListener("pointerdown", handleClick);
   hitbox.addEventListener("pointerdown", handleClick);
-}
-
-function isBirthdayMusicPlaying() {
-  return Boolean(state.birthdayAudio && !state.birthdayAudio.paused && !state.birthdayAudio.ended);
-}
-
-function stopMusicBoxAudioForBirthday() {
-  if (state.musicBoxAudio) {
-    state.musicBoxAudio.pause();
-    state.musicBoxAudio.currentTime = 0;
-    state.musicBoxAudio.onended = null;
-  }
-  stopMusicBox();
 }
 
 function setMusicBoxFrame(frame) {
@@ -1529,6 +1526,7 @@ function startMusicBox() {
     return;
   }
   state.musicBox.playing = true;
+  state.musicBox.stopping = false;
   let index = 0;
   const frameDelay = 1000 / state.musicBox.frameRate;
   const loop = () => {
@@ -1542,24 +1540,43 @@ function startMusicBox() {
   if (state.musicBoxAudio) {
     state.musicBoxAudio.pause();
     state.musicBoxAudio.currentTime = 0;
-    state.musicBoxAudio.onended = stopMusicBox;
+    state.musicBoxAudio.loop = true;
+    state.musicBoxAudio.volume = 1;
+    state.musicBoxAudio.onended = null;
     state.musicBoxAudio.play().catch(() => stopMusicBox());
-  } else {
-    window.setTimeout(stopMusicBox, 5000);
   }
   loop();
 }
 
-function stopMusicBox() {
+function stopMusicBox({ fade = false } = {}) {
   if (!state.musicBox) {
     return;
   }
+  if (state.musicBox.stopping) {
+    return;
+  }
+  state.musicBox.stopping = true;
   state.musicBox.playing = false;
   if (state.musicBox.timer) {
     window.clearTimeout(state.musicBox.timer);
     state.musicBox.timer = null;
   }
   setMusicBoxFrame(state.musicBox.frames[0]);
+  if (state.musicBoxAudio) {
+    state.musicBoxAudio.loop = false;
+    state.musicBoxAudio.onended = null;
+    if (fade && !state.musicBoxAudio.paused) {
+      fadeAudio(state.musicBoxAudio, 0, 1500);
+    } else {
+      state.musicBoxAudio.pause();
+      state.musicBoxAudio.currentTime = 0;
+    }
+  }
+  window.setTimeout(() => {
+    if (state.musicBox) {
+      state.musicBox.stopping = false;
+    }
+  }, fade ? 1550 : 0);
 }
 
 function setupLetter(manifest) {
@@ -1598,6 +1615,14 @@ function setupLetter(manifest) {
     hitbox,
     openedOnce: false,
     visible: false,
+    view: {
+      scale: 1,
+      x: 0,
+      y: 0,
+      pointers: new Map(),
+      lastDistance: 0,
+      lastCenter: null,
+    },
   };
 
   const handleClick = (event) => {
@@ -1619,16 +1644,28 @@ function setLetterFrame(frame) {
   setSpriteFrame(state.letter.sprite, frame);
 }
 
-function startBirthdayMusicForLetter() {
-  if (!state.birthdayAudio) {
+function applyLetterTransform() {
+  if (!state.letter || !letterImage) {
     return;
   }
-  stopMusicBoxAudioForBirthday();
-  state.birthdayAudio.loop = true;
-  if (state.birthdayAudio.paused || state.birthdayAudio.ended) {
-    state.birthdayAudio.currentTime = 0;
+  const { view } = state.letter;
+  letterImage.style.setProperty("--letter-x", `${view.x}px`);
+  letterImage.style.setProperty("--letter-y", `${view.y}px`);
+  letterImage.style.setProperty("--letter-scale", view.scale.toFixed(3));
+}
+
+function resetLetterTransform() {
+  if (!state.letter) {
+    return;
   }
-  state.birthdayAudio.play().catch(() => {});
+  const { view } = state.letter;
+  view.scale = 1;
+  view.x = 0;
+  view.y = 0;
+  view.pointers.clear();
+  view.lastDistance = 0;
+  view.lastCenter = null;
+  applyLetterTransform();
 }
 
 function openLetterViewer() {
@@ -1639,9 +1676,9 @@ function openLetterViewer() {
   setLetterFrame(openFrame);
   state.letter.openedOnce = true;
   state.letter.visible = true;
+  resetLetterTransform();
   letterViewer.classList.add("visible");
   letterViewer.setAttribute("aria-hidden", "false");
-  startBirthdayMusicForLetter();
 }
 
 function closeLetterViewer() {
@@ -1651,9 +1688,111 @@ function closeLetterViewer() {
   state.letter.visible = false;
   letterViewer.classList.remove("visible");
   letterViewer.setAttribute("aria-hidden", "true");
-  if (state.birthdayAudio) {
-    state.birthdayAudio.loop = false;
+  resetLetterTransform();
+}
+
+function pointerRecord(event) {
+  return { x: event.clientX, y: event.clientY };
+}
+
+function distanceBetween(first, second) {
+  const dx = second.x - first.x;
+  const dy = second.y - first.y;
+  return Math.hypot(dx, dy);
+}
+
+function centerBetween(first, second) {
+  return {
+    x: (first.x + second.x) / 2,
+    y: (first.y + second.y) / 2,
+  };
+}
+
+function setLetterScaleAround(nextScale, centerX, centerY) {
+  if (!state.letter || !letterImage) {
+    return;
   }
+  const view = state.letter.view;
+  const rect = letterImage.getBoundingClientRect();
+  const imageCenterX = rect.left + rect.width / 2;
+  const imageCenterY = rect.top + rect.height / 2;
+  const beforeScale = view.scale;
+  const scale = clamp(nextScale, 0.55, 5);
+  const ratio = scale / beforeScale;
+  view.x = centerX - imageCenterX - (centerX - imageCenterX - view.x) * ratio;
+  view.y = centerY - imageCenterY - (centerY - imageCenterY - view.y) * ratio;
+  view.scale = scale;
+  applyLetterTransform();
+}
+
+function handleLetterPointerDown(event) {
+  if (!state.letter?.visible || event.target === letterClose) {
+    return;
+  }
+  event.stopPropagation();
+  event.preventDefault();
+  letterViewer?.setPointerCapture?.(event.pointerId);
+  const view = state.letter.view;
+  view.pointers.set(event.pointerId, pointerRecord(event));
+  view.lastDistance = 0;
+  view.lastCenter = pointerRecord(event);
+}
+
+function handleLetterPointerMove(event) {
+  if (!state.letter?.visible) {
+    return;
+  }
+  const view = state.letter.view;
+  if (!view.pointers.has(event.pointerId)) {
+    return;
+  }
+  event.stopPropagation();
+  event.preventDefault();
+  view.pointers.set(event.pointerId, pointerRecord(event));
+  const points = Array.from(view.pointers.values());
+  if (points.length >= 2) {
+    const distance = distanceBetween(points[0], points[1]);
+    const center = centerBetween(points[0], points[1]);
+    if (view.lastDistance > 0 && view.lastCenter) {
+      const nextScale = view.scale * (distance / view.lastDistance);
+      view.x += center.x - view.lastCenter.x;
+      view.y += center.y - view.lastCenter.y;
+      setLetterScaleAround(nextScale, center.x, center.y);
+    }
+    view.lastDistance = distance;
+    view.lastCenter = center;
+    return;
+  }
+  const point = points[0];
+  if (view.lastCenter && point) {
+    view.x += point.x - view.lastCenter.x;
+    view.y += point.y - view.lastCenter.y;
+    applyLetterTransform();
+  }
+  view.lastCenter = point;
+  view.lastDistance = 0;
+}
+
+function handleLetterPointerUp(event) {
+  if (!state.letter?.visible) {
+    return;
+  }
+  const view = state.letter.view;
+  view.pointers.delete(event.pointerId);
+  letterViewer?.releasePointerCapture?.(event.pointerId);
+  const points = Array.from(view.pointers.values());
+  view.lastDistance = 0;
+  view.lastCenter = points[0] || null;
+}
+
+function handleLetterWheel(event) {
+  if (!state.letter?.visible) {
+    return;
+  }
+  event.stopPropagation();
+  event.preventDefault();
+  const delta = Math.exp(-event.deltaY * 0.0015);
+  setLetterScaleAround(state.letter.view.scale * delta, event.clientX, event.clientY);
 }
 
 function ensureClockAnalyser() {
@@ -2078,6 +2217,9 @@ function updateBackgroundMusicForActor(force = false) {
   if (force) {
     state.bgm.current = null;
   }
+  if (nextTrack === "forest" && state.musicBox?.playing) {
+    stopMusicBox({ fade: true });
+  }
   switchBackgroundMusic(nextTrack);
 }
 
@@ -2118,9 +2260,6 @@ async function loadStage() {
   }
   if (manifest.audio?.musicBox) {
     state.musicBoxAudio = new Audio(versionedSrc(manifest.audio.musicBox));
-  }
-  if (manifest.audio?.birthday) {
-    state.birthdayAudio = new Audio(versionedSrc(manifest.audio.birthday));
   }
   if (manifest.audio?.curtain) {
     state.curtainAudio = new Audio(versionedSrc(manifest.audio.curtain));
@@ -2211,7 +2350,11 @@ letterClose?.addEventListener("pointerdown", (event) => {
   event.preventDefault();
   closeLetterViewer();
 });
-letterViewer?.addEventListener("pointerdown", (event) => event.stopPropagation());
+letterViewer?.addEventListener("pointerdown", handleLetterPointerDown);
+letterViewer?.addEventListener("pointermove", handleLetterPointerMove);
+letterViewer?.addEventListener("pointerup", handleLetterPointerUp);
+letterViewer?.addEventListener("pointercancel", handleLetterPointerUp);
+letterViewer?.addEventListener("wheel", handleLetterWheel, { passive: false });
 letterViewer?.addEventListener("click", (event) => event.stopPropagation());
 window.addEventListener("resize", () => {
   resizeStage();
