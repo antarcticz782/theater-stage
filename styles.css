@@ -136,12 +136,14 @@ html.mobile-portrait #stage-window {
   right: max(18px, env(safe-area-inset-right));
   top: max(18px, env(safe-area-inset-top));
   z-index: 30002;
-  width: clamp(58px, 8vmin, 96px);
+  width: clamp(116px, 16vmin, 192px);
   height: auto;
+  opacity: 0.6;
   pointer-events: none;
   filter:
-    drop-shadow(0 7px 12px rgba(0, 0, 0, 0.28))
-    drop-shadow(0 0 10px rgba(255, 236, 190, 0.34));
+    brightness(0) invert(1)
+    drop-shadow(0 7px 12px rgba(0, 0, 0, 0.24))
+    drop-shadow(0 0 16px rgba(255, 255, 255, 0.62));
   animation: guide-breathe 1.65s ease-in-out infinite;
 }
 
@@ -773,12 +775,10 @@ html.mobile-portrait #stage-window {
 @keyframes guide-breathe {
   0%,
   100% {
-    opacity: 0.78;
     transform: scale(0.94);
   }
 
   50% {
-    opacity: 1;
     transform: scale(1.08);
   }
 }
