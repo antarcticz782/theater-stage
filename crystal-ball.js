@@ -294,7 +294,7 @@ class CrystalBallViewer {
     const deltaSeconds = this.lastAnimationTime ? Math.min((now - this.lastAnimationTime) / 1000, 0.05) : 0;
     this.lastAnimationTime = now;
     if (this.model && isTouchScreen() && isVirtualLandscapeMode() && this.settings.autoRotate > 0) {
-      this.model.rotation.y += deltaSeconds * this.settings.autoRotate * 0.72;
+      this.model.rotation.y += deltaSeconds * this.settings.autoRotate * (Math.PI / 30);
     }
     this.controls?.update();
     this.renderer.render(this.scene, this.camera);
