@@ -12,7 +12,7 @@
         }
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=20260528-03">
+    <link rel="stylesheet" href="styles.css?v=20260528-04">
   </head>
   <body class="app-loading">
     <main id="viewport" aria-label="剧院舞台">
@@ -35,17 +35,29 @@
     </main>
     <div id="crystal-ball-viewer" aria-hidden="true">
       <button id="crystal-ball-close" type="button" aria-label="关闭模型展示">×</button>
-      <img class="viewer-guide" src="assets/ui/guide.png?v=20260528-03" alt="">
+      <div class="viewer-guide" aria-hidden="true">
+        <img src="assets/ui/guide.png?v=20260528-04" alt="">
+        <div class="viewer-guide-text">
+          <span class="guide-desktop">按住鼠标左键可以左右拖动，滚轮可以放大缩小</span>
+          <span class="guide-touch">单指拖动，双指缩放</span>
+        </div>
+      </div>
       <canvas id="crystal-ball-canvas"></canvas>
       <div id="crystal-ball-status" aria-live="polite"></div>
     </div>
     <div id="letter-viewer" aria-hidden="true">
       <button id="letter-close" type="button" aria-label="关闭信纸">×</button>
-      <img class="viewer-guide" src="assets/ui/guide.png?v=20260528-03" alt="">
+      <div class="viewer-guide" aria-hidden="true">
+        <img src="assets/ui/guide.png?v=20260528-04" alt="">
+        <div class="viewer-guide-text">
+          <span class="guide-desktop">按住鼠标左键可以左右拖动，滚轮可以放大缩小</span>
+          <span class="guide-touch">单指拖动，双指缩放</span>
+        </div>
+      </div>
       <img id="letter-image" alt="信纸">
     </div>
-    <script src="app.js?v=20260528-03"></script>
-    <script type="module" src="crystal-ball.js?v=20260528-03"></script>
+    <script src="app.js?v=20260528-04"></script>
+    <script type="module" src="crystal-ball.js?v=20260528-04"></script>
   </body>
 </html>
 

@@ -9,6 +9,8 @@ const rotateDeviceHint = document.getElementById("rotate-device-hint");
 const letterViewer = document.getElementById("letter-viewer");
 const letterClose = document.getElementById("letter-close");
 const letterImage = document.getElementById("letter-image");
+const GUIDE_IDLE_DELAY = 60000;
+const viewerGuideTimers = new WeakMap();
 
 document.body.classList.add("app-loading");
 
@@ -104,6 +106,42 @@ function randomBetween(min, max) {
 
 function versionedSrc(src) {
   return state.assetVersion ? `${src}?v=${state.assetVersion}` : src;
+}
+
+function setViewerGuideVisible(container, visible) {
+  const guide = container?.querySelector?.(".viewer-guide");
+  if (!guide) {
+    return;
+  }
+  guide.classList.toggle("visible", visible);
+}
+
+function clearViewerGuideTimer(container) {
+  const timer = viewerGuideTimers.get(container);
+  if (timer) {
+    window.clearTimeout(timer);
+    viewerGuideTimers.delete(container);
+  }
+}
+
+function activateViewerGuide(container) {
+  clearViewerGuideTimer(container);
+  setViewerGuideVisible(container, true);
+}
+
+function hideViewerGuideUntilIdle(container) {
+  if (!container) {
+    return;
+  }
+  clearViewerGuideTimer(container);
+  setViewerGuideVisible(container, false);
+  const timer = window.setTimeout(() => {
+    if (container.classList.contains("visible")) {
+      setViewerGuideVisible(container, true);
+    }
+    viewerGuideTimers.delete(container);
+  }, GUIDE_IDLE_DELAY);
+  viewerGuideTimers.set(container, timer);
 }
 
 function setLoadingMessage(text) {
@@ -1683,6 +1721,7 @@ function openLetterViewer() {
   resetLetterTransform();
   letterViewer.classList.add("visible");
   letterViewer.setAttribute("aria-hidden", "false");
+  activateViewerGuide(letterViewer);
 }
 
 function closeLetterViewer() {
@@ -1692,6 +1731,8 @@ function closeLetterViewer() {
   state.letter.visible = false;
   letterViewer.classList.remove("visible");
   letterViewer.setAttribute("aria-hidden", "true");
+  clearViewerGuideTimer(letterViewer);
+  setViewerGuideVisible(letterViewer, false);
   resetLetterTransform();
 }
 
@@ -1733,6 +1774,7 @@ function handleLetterPointerDown(event) {
   if (!state.letter?.visible || event.target === letterClose) {
     return;
   }
+  hideViewerGuideUntilIdle(letterViewer);
   event.stopPropagation();
   event.preventDefault();
   letterViewer?.setPointerCapture?.(event.pointerId);
@@ -1750,6 +1792,7 @@ function handleLetterPointerMove(event) {
   if (!view.pointers.has(event.pointerId)) {
     return;
   }
+  hideViewerGuideUntilIdle(letterViewer);
   event.stopPropagation();
   event.preventDefault();
   view.pointers.set(event.pointerId, pointerRecord(event));
@@ -1793,6 +1836,7 @@ function handleLetterWheel(event) {
   if (!state.letter?.visible) {
     return;
   }
+  hideViewerGuideUntilIdle(letterViewer);
   event.stopPropagation();
   event.preventDefault();
   const delta = Math.exp(-event.deltaY * 0.0015);
