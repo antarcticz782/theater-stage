@@ -30,7 +30,6 @@ const DEFAULT_RENDER_SETTINGS = {
   modelScale: 1.11,
   autoRotate: 1.5,
 };
-const GUIDE_IDLE_DELAY = 60000;
 
 function isTouchScreen() {
   return window.matchMedia?.("(hover: none) and (pointer: coarse)")?.matches || navigator.maxTouchPoints > 0;
@@ -57,7 +56,6 @@ class CrystalBallViewer {
     this.canvas = document.getElementById("crystal-ball-canvas");
     this.status = document.getElementById("crystal-ball-status");
     this.closeButton = document.getElementById("crystal-ball-close");
-    this.guide = this.container?.querySelector(".viewer-guide") || null;
     this.renderer = null;
     this.scene = null;
     this.camera = null;
@@ -72,25 +70,13 @@ class CrystalBallViewer {
     this.visible = false;
     this.animationFrame = null;
     this.lastAnimationTime = 0;
-    this.guideTimer = null;
     this.settings = { ...DEFAULT_RENDER_SETTINGS };
 
     this.closeButton?.addEventListener("click", () => this.hide());
-    this.container?.addEventListener("pointerdown", (event) => {
-      event.stopPropagation();
-      if (event.target !== this.closeButton) {
-        this.hideGuideUntilIdle();
-      }
-    });
+    this.container?.addEventListener("pointerdown", (event) => event.stopPropagation());
     this.container?.addEventListener("click", (event) => event.stopPropagation());
-    this.container?.addEventListener("wheel", (event) => {
-      event.stopPropagation();
-      this.hideGuideUntilIdle();
-    }, { passive: true });
-    this.container?.addEventListener("touchmove", (event) => {
-      event.stopPropagation();
-      this.hideGuideUntilIdle();
-    }, { passive: true });
+    this.container?.addEventListener("wheel", (event) => event.stopPropagation(), { passive: true });
+    this.container?.addEventListener("touchmove", (event) => event.stopPropagation(), { passive: true });
   }
 
   async show() {
@@ -101,7 +87,6 @@ class CrystalBallViewer {
     this.container.setAttribute("aria-hidden", "false");
     this.visible = true;
     this.lastAnimationTime = 0;
-    this.showGuide();
     if (!this.model) {
       this.setStatus("模型加载中...");
     }
@@ -123,41 +108,11 @@ class CrystalBallViewer {
     this.visible = false;
     this.container?.classList.remove("visible");
     this.container?.setAttribute("aria-hidden", "true");
-    this.clearGuideTimer();
-    this.setGuideVisible(false);
     if (this.animationFrame) {
       cancelAnimationFrame(this.animationFrame);
       this.animationFrame = null;
     }
     this.lastAnimationTime = 0;
-  }
-
-  setGuideVisible(visible) {
-    this.guide?.classList.toggle("visible", visible);
-  }
-
-  clearGuideTimer() {
-    if (!this.guideTimer) {
-      return;
-    }
-    window.clearTimeout(this.guideTimer);
-    this.guideTimer = null;
-  }
-
-  showGuide() {
-    this.clearGuideTimer();
-    this.setGuideVisible(true);
-  }
-
-  hideGuideUntilIdle() {
-    this.clearGuideTimer();
-    this.setGuideVisible(false);
-    this.guideTimer = window.setTimeout(() => {
-      if (this.visible) {
-        this.setGuideVisible(true);
-      }
-      this.guideTimer = null;
-    }, GUIDE_IDLE_DELAY);
   }
 
   async ensureLoaded() {
@@ -339,7 +294,7 @@ class CrystalBallViewer {
     const deltaSeconds = this.lastAnimationTime ? Math.min((now - this.lastAnimationTime) / 1000, 0.05) : 0;
     this.lastAnimationTime = now;
     if (this.model && isTouchScreen() && isVirtualLandscapeMode() && this.settings.autoRotate > 0) {
-      this.model.rotation.y += deltaSeconds * this.settings.autoRotate * (Math.PI / 30);
+      this.model.rotation.y += deltaSeconds * this.settings.autoRotate * 0.72;
     }
     this.controls?.update();
     this.renderer.render(this.scene, this.camera);

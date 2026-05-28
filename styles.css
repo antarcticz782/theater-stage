@@ -132,59 +132,19 @@ html.mobile-portrait #stage-window {
 }
 
 .viewer-guide {
-  position: absolute;
-  left: 50%;
-  top: max(24px, env(safe-area-inset-top));
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  top: max(18px, env(safe-area-inset-top));
   z-index: 30002;
-  display: grid;
-  justify-items: center;
-  gap: 6px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate3d(-50%, -18px, 0) scale(0.82);
-  transition: opacity 0.24s ease, transform 0.24s ease;
-}
-
-.viewer-guide.visible {
-  opacity: 1;
-  transform: translate3d(-50%, 0, 0) scale(1);
-}
-
-.viewer-guide img {
-  display: block;
-  width: clamp(92px, 12vmin, 154px);
+  width: clamp(116px, 16vmin, 192px);
   height: auto;
   opacity: 0.6;
+  pointer-events: none;
   filter:
     brightness(0) invert(1)
     drop-shadow(0 7px 12px rgba(0, 0, 0, 0.24))
     drop-shadow(0 0 16px rgba(255, 255, 255, 0.62));
   animation: guide-breathe 1.65s ease-in-out infinite;
-}
-
-.viewer-guide-text {
-  color: rgba(255, 255, 255, 0.92);
-  font-size: clamp(12px, 1.4vmin, 16px);
-  line-height: 1.25;
-  text-align: center;
-  text-shadow:
-    0 2px 7px rgba(0, 0, 0, 0.72),
-    0 0 12px rgba(255, 255, 255, 0.22);
-  white-space: nowrap;
-}
-
-.guide-touch {
-  display: none;
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .guide-desktop {
-    display: none;
-  }
-
-  .guide-touch {
-    display: inline;
-  }
 }
 
 #crystal-ball-status {
@@ -211,7 +171,7 @@ html.mobile-portrait #stage-window {
 }
 
 #crystal-ball-close {
-  position: absolute;
+  position: fixed;
   left: max(18px, env(safe-area-inset-left));
   top: max(18px, env(safe-area-inset-top));
   z-index: 30002;
@@ -249,17 +209,6 @@ html.mobile-portrait #stage-window {
   transition: opacity 0.38s ease;
 }
 
-html.mobile-portrait #letter-viewer {
-  left: 0;
-  top: 0;
-  right: auto;
-  bottom: auto;
-  width: 100vh;
-  height: 100vw;
-  transform: rotate(90deg) translateY(-100%);
-  transform-origin: 0 0;
-}
-
 #letter-viewer.visible {
   opacity: 1;
   pointer-events: auto;
@@ -282,19 +231,12 @@ html.mobile-portrait #letter-viewer {
     0 0 0 1px rgba(255, 246, 225, 0.28);
 }
 
-html.mobile-portrait #letter-image {
-  width: auto;
-  height: min(calc(100vw - 34px), 1600px);
-  max-width: calc(100vh - 40px);
-  max-height: none;
-}
-
 #letter-image:active {
   cursor: grabbing;
 }
 
 #letter-close {
-  position: absolute;
+  position: fixed;
   left: max(18px, env(safe-area-inset-left));
   top: max(18px, env(safe-area-inset-top));
   z-index: 29002;
@@ -315,15 +257,6 @@ html.mobile-portrait #letter-image {
 
 #letter-viewer .viewer-guide {
   z-index: 29002;
-}
-
-html.mobile-portrait #letter-viewer .viewer-guide {
-  top: 18px;
-}
-
-html.mobile-portrait #letter-close {
-  left: 14px;
-  top: 14px;
 }
 
 #rotate-device-hint {
