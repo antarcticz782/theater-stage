@@ -216,13 +216,15 @@ html.mobile-portrait #stage-window {
 
 #letter-image {
   display: block;
-  max-width: min(86vw, 760px);
-  max-height: min(84vh, 980px);
+  width: min(92vw, 1200px);
+  max-width: none;
+  max-height: min(92vh, 1600px);
   object-fit: contain;
   cursor: grab;
   touch-action: none;
   transform: translate3d(var(--letter-x, 0px), var(--letter-y, 0px), 0) scale(var(--letter-scale, 1));
   transform-origin: center center;
+  image-rendering: auto;
   will-change: transform;
   box-shadow:
     0 24px 42px rgba(0, 0, 0, 0.38),

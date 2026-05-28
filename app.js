@@ -187,7 +187,11 @@ async function preloadWithLimit(urls, loader, onProgress, limit = 8) {
     while (nextIndex < urls.length) {
       const url = urls[nextIndex];
       nextIndex += 1;
-      await loader(url);
+      try {
+        await loader(url);
+      } catch (error) {
+        console.warn("Asset preload skipped:", url, error);
+      }
       completed += 1;
       onProgress?.(completed, urls.length, url);
     }
@@ -1717,7 +1721,7 @@ function setLetterScaleAround(nextScale, centerX, centerY) {
   const imageCenterX = rect.left + rect.width / 2;
   const imageCenterY = rect.top + rect.height / 2;
   const beforeScale = view.scale;
-  const scale = clamp(nextScale, 0.55, 5);
+  const scale = clamp(nextScale, 0.55, 8);
   const ratio = scale / beforeScale;
   view.x = centerX - imageCenterX - (centerX - imageCenterX - view.x) * ratio;
   view.y = centerY - imageCenterY - (centerY - imageCenterY - view.y) * ratio;
